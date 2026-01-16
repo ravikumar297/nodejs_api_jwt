@@ -15,7 +15,7 @@ module.exports = {
     },
 
     getUsers: (callback) => {  
-        pool.query( 'SELECT * FROM USERS ORDER BY id DESC', [], (error, results, fields) => {
+        pool.query( 'SELECT * FROM USERS', [], (error, results, fields) => {
             if(error){
                 return callback(error, null);
             }
@@ -34,8 +34,8 @@ module.exports = {
 
     updateUser: (data, callback) => {    
         pool.query(
-            'UPDATE USERS SET first_name = ?, last_name = ?, mail = ?, address = ?, state = ?, city = ? WHERE id = ?',
-            [data.first_name, data.last_name, data.mail, data.address, data.state, data.city, data.id],
+            'UPDATE USERS SET first_name = ?, last_name = ?, mail = ?, password = ?, address = ?, state = ?, city = ? WHERE id = ?',
+            [data.first_name, data.last_name, data.mail, data.password, data.address, data.state, data.city, data.id],
             (error, results, fields) => { 
                 if(error){
                     return callback(error, null);
@@ -45,8 +45,8 @@ module.exports = {
         )
     },
 
-    deleteUser: (id, callback) => {  
-        pool.query( 'DELETE FROM USERS WHERE id = ?', [id], (error, results, fields) => {
+    deleteUser: (data, callback) => {  
+        pool.query( 'DELETE FROM USERS WHERE id = ?', [data.id], (error, results, fields) => {
             if(error){
                 return callback(error);
             }
